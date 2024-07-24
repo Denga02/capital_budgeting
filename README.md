@@ -1,6 +1,6 @@
 # capital_budgeting
 
-## Funktion
+## Function
 - calculate captial profitability according to the Net present value method for wind power or photovoltaics
 - use the following formulas:
   - with one-off funding as outside captial  
