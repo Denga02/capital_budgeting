@@ -57,7 +57,8 @@ def main():
         print("C_eFÖ_PV: " + str(area_1.npv_funding("pv")))
         print("C_eFÖ_WK: " + str(area_1.npv_funding("wk")))
     else:
-        print("dummy")
+        print("C_FÖD_PV: " + str(area_1.npv_loan("pv")))
+        print("C_FÖD_WK: " + str(area_1.npv_loan("wk")))
 
 if __name__ == "__main__":
     main()
