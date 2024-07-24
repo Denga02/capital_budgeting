@@ -23,7 +23,7 @@ __status__ = "Development"
 #   period                      (n)                          #
 ##############################################################
 
-from Area import Area
+from area import Area
 
 def main():
     # these values will be given later through a GUI and other methods.
