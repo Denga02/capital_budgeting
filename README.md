@@ -6,7 +6,7 @@
   - with one-off funding as outside captial  
   $C_{Strom} = -A_0 - A_{Pacht} * d_{Pacht} + E_{EK} + E_{eFÖD} + E_{Strom} * d_{Strom} - A_{Wartung} * d_{Wartung}$
   - with loan as outside captial   
-  $C_{Strom} = -A_0 - A_{Pacht} * d_{Pacht} + E_{EK} + E_{eFÖD} * d_{eFÖD} + E_{Strom} * d_{Strom} - A_{Wartung} * d_{Wartung}$
+  $C_{Strom} = -A_0 - A_{Pacht} * d_{Pacht} + E_{EK} + E_{FÖD} * d_{eFÖD} + E_{Strom} * d_{Strom} - A_{Wartung} * d_{Wartung}$
 - detailed discounting formula  
   $d_{FÖD} = (\frac{(1 + i)^n -1}{(1+i)^n*i})$  
 
