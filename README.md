@@ -15,11 +15,15 @@
   $d_{Strom} = (1+e_E)*(\frac{(1+i)^n-(1+e_E)^n}{(1+i)^n*(i-e_E)})$
 
   $d_{Wartung} = (1+e_A)*(\frac{(1+i)^n-(1+e_A)^n}{(1+i)^n*(i-e_A)})$
+  
 - if only own capital or a one-off funding is used, then $i = i_{EK}$  
-- if loan is used, then $i = i_{m}$   
+- if loan is used, then $i = i_{m}$  
+ 
 $i_m = \frac{((i_{EK}*Eigenkapital)+(i_{FK}*Fremdkapital))}{Eigenkaptial+Fremdkaptial}$
-- detailed discounting maintaince cost formula  
+- detailed discounting maintaince cost formula
+  
 $A_{Wartung_Wind} = 0.05 * A_0$  
+
 $A_{Wartung_PV} = 0.025 * A_0$
 
 - variable meanings
