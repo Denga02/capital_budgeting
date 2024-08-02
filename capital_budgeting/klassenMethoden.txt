@@ -1,28 +1,27 @@
 Datei Area
- Area
+ area
  - Hauptklasse
-- Zinsatz für Eigenkapital und für Fremdkapital
-- Kalkulationszinsatz aus den beiden
---> Costing Interest
+- Zinssatz für Eigen- und Fremdkapital
+- Kalkulationszinssatz aus beiden
+--> costing interest
 
 - Berechnet die Wartungskosten
 
-- erhählt die Anfnagsinvestition
-- erhählt den Ertrag aus der Stromeinspeisung
+- erhält die Anfangsinvestition
+- erhält die Einnahmen aus der Stromeinspeisung
 
-Berechnung Kapitalwert je nachdem ob es mit einmaligen Förderungsdarlehen ist oder mit normalen Darlehen (weil je nachdem muss andere Zinsatz)
+Berechnung des Kapitalwerts je nachdem, ob es sich um ein einmaliges Förderdarlehen oder ein normales Darlehen handelt (da je nachdem ein anderer Zinssatz erforderlich ist).
 
-Datei Discounting
+Datei Diskontierung
 
-Klasse DiscountingsFaktor
-- berechent d in den Formeln
+Klasse Abzinsungsfaktor
+- berechnet d in den Formeln
 
 Klasse Diskontierung Berechnen
-- berechent den letzendlichen Ertrag
+- berechnet die endgültige Auszahlung
 - E bzw. A mal d in den Formeln
 
 Datei Main
-- ertsellt 4 Objekte aus Area mit Defautwerten bzw. noch nicht von der GUI befühlt
-- besipielhaft darstellen, wie die Obejkte durch GUI befühlt werden (setter Methoden etc.)
-- Führt Berechnungen aus
-
+- Erzeugt 4 Objekte aus Area mit Default-Werten bzw. noch nicht von GUI berührt.
+- Zeigt an, wie die Objekte von der GUI behandelt werden (Setter, Methoden etc.).
+- Führt Berechnungen aus.
