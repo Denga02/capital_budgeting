@@ -23,43 +23,36 @@ __status__ = "Development"
 #   period                      (n)                          #
 ##############################################################
 
-from area import Area
+from area import AreaCalculation
 
 def main():
-    # these values will be given later through a GUI and other methods.
-    # variables through input screen
-    own_captial = 20000
-    outside_captial_type = "funding_amount"
-    funding_amount = 10000 
-    loan = 1000
-    land_type = "property"
-    lease_price = 0
-    ################################
-
-    # variables through other methods
-    initial_investment = 100000
-    electricity_feed_yield = 5000
-    ################################
-    
-    # variables that are not defined in the input screen, but are needed.
-    own_captial_interest = 0.03
-    outside_captial_interest = 0.01
-    payout_inflation_rate = 0.015
-    deposit_inflation_rate = 0.02
+    # Beispielwerte für die Parameter
+    own_capital = 100000
+    outside_capital_type = "Loan"
+    funding_amount = 50000
+    loan = 150000
+    own_capital_interest = 0.03
+    outside_capital_interest = 0.05
+    initial_investment = 200000
+    land_type = "Agricultural"
+    lease_price = 10000
+    electricity_feed_yield = 15000
     period = 20
+    payout_inflation_rate = 0.02
+    deposit_inflation_rate = 0.01
+    power_type = "pv"  # Beispiel: "pv" für Photovoltaik
 
-    # in production, create up to 4 surface objects
-    area_1 = Area(own_captial, outside_captial_type, funding_amount, loan, land_type, lease_price, initial_investment, electricity_feed_yield, 
-                 own_captial_interest, outside_captial_interest, payout_inflation_rate, deposit_inflation_rate, period)
-    
-    
-    if outside_captial_type == "funding_amount":
-        print("C_eFÖ_PV: " + str(area_1.npv_funding("pv")))
-        print("C_eFÖ_WK: " + str(area_1.npv_funding("wk")))
-    else:
-        print("C_FÖD_PV: " + str(area_1.npv_loan("pv")))
-        print("C_FÖD_WK: " + str(area_1.npv_loan("wk")))
+    # Instanziiere die Hauptklasse
+    area_1 = AreaCalculation(
+        own_capital, outside_capital_type, funding_amount, loan, own_capital_interest,
+        outside_capital_interest, initial_investment, land_type, lease_price, electricity_feed_yield,
+        period, payout_inflation_rate, deposit_inflation_rate
+    )
 
+    print("Ergebnisse der Berechnungen:")
+    print(f"NPV Funding: {area_1.npv_funding}")
+    print(f"NPV Loan: {area_1.npv_loan}")
+
+# Aufruf der Main-Methode
 if __name__ == "__main__":
     main()
-
