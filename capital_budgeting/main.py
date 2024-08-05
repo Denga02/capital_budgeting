@@ -23,36 +23,45 @@ __status__ = "Development"
 #   period                      (n)                          #
 ##############################################################
 
-from area import AreaCalculation
+from area import Area
+from discounting import DiscountedCalculations, DiscountingFactor
 
 def main():
-    # Beispielwerte für die Parameter
-    own_capital = 100000
-    outside_capital_type = "Loan"
-    funding_amount = 50000
-    loan = 150000
-    own_capital_interest = 0.03
-    outside_capital_interest = 0.05
-    initial_investment = 200000
-    land_type = "Agricultural"
-    lease_price = 10000
-    electricity_feed_yield = 15000
-    period = 20
-    payout_inflation_rate = 0.02
-    deposit_inflation_rate = 0.01
-    power_type = "pv"  # Beispiel: "pv" für Photovoltaik
+    # Standardwerte für die Erstellung der Area-Objekte
+    default_values = {
+        "own_captial": 20000,
+        "outside_captial_type": "funding_amount",
+        "funding_amount": 10000,
+        "loan": 1000,
+        "land_type": "property",
+        "lease_price": 0,
+        "initial_investment": 100000,
+        "electricity_feed_yield": 5000,
+        "own_captial_interest": 0.03,
+        "outside_captial_interest": 0.01,
+        "payout_inflation_rate": 0.015,
+        "deposit_inflation_rate": 0.02,
+        "period": 20
+    }
 
-    # Instanziiere die Hauptklasse
-    area_1 = AreaCalculation(
-        own_capital, outside_capital_type, funding_amount, loan, own_capital_interest,
-        outside_capital_interest, initial_investment, land_type, lease_price, electricity_feed_yield,
-        period, payout_inflation_rate, deposit_inflation_rate
-    )
+    # Erstellung von 4 Area-Objekten mit den Standardwerten
+    areas = [Area(**default_values) for _ in range(4)]
 
-    print("Ergebnisse der Berechnungen:")
-    print(f"NPV Funding: {area_1.npv_funding}")
-    print(f"NPV Loan: {area_1.npv_loan}")
+    # Erstellung von Instanzen der Klassen Discounting und DiscountedCalculations
+    Discounting_factor = DiscountingFactor()
 
-# Aufruf der Main-Methode
+    # Berechnungen für jedes Area-Objekt durchführen
+    for index, area in enumerate(areas):
+        discounted_calculations = DiscountedCalculations(area)
+        
+        print(f"Berechnungen für Area {index + 1}:")
+        if area.outside_captial_type == "funding_amount":
+            print("C_eFÖ_PV: " + str(area.npv_funding("pv", Discounting_factor, discounted_calculations)))
+            print("C_eFÖ_WK: " + str(area.npv_funding("wk", Discounting_factor, discounted_calculations)))
+        else:
+            print("C_FÖD_PV: " + str(area.npv_loan("pv", Discounting_factor, discounted_calculations)))
+            print("C_FÖD_WK: " + str(area.npv_loan("wk", Discounting_factor, discounted_calculations)))
+        print("-" * 30)
+
 if __name__ == "__main__":
     main()

@@ -1,40 +1,52 @@
-from discount_calculation import DiscountCalculation
-from investment_cost import InvestmentCost
-from discounting import Discounting
+from typing import Any
 
 
-class AreaCalculation:
-    def __init__(self, own_capital, outside_capital_type, funding_amount, loan, own_capital_interest,
-                 outside_capital_interest, initial_investment, land_type, lease_price, electricity_feed_yield,
-                 period, payout_inflation_rate, deposit_inflation_rate):
+class Area:
+    def __init__(self, own_captial, outside_captial_type, funding_amount, loan, land_type, lease_price, initial_investment, electricity_feed_yield, 
+                 own_captial_interest, outside_captial_interest, payout_inflation_rate, deposit_inflation_rate, period):
         
-        # Instanziiere Investitionsdetails
-        # investment_details
-        self.investment_cost = InvestmentCost(initial_investment, land_type, lease_price, electricity_feed_yield)
-        # Instanziiere Diskontierungsberechnungen
-        # discount_calcutlation
-        self.discount = Discounting(own_capital, outside_capital_type, funding_amount, loan, own_capital_interest, outside_capital_interest, 
-                                    period, payout_inflation_rate, deposit_inflation_rate)
-        # Instanziiere Ertragsberechnungen
-        # yield
-        self.discount_calculations = DiscountCalculation(self.investment_cost, self.discount)
+        self.own_captial = own_captial
+        self.outside_captial_type = outside_captial_type
+        self.funding_amount = funding_amount
+        self.loan = loan
+        self.land_type = land_type
+        self.lease_price = lease_price
+        self.initial_investment = initial_investment
+        self.electricity_feed_yield = electricity_feed_yield
+        self.own_captial_interest = own_captial_interest
+        self.outside_capital_interest = outside_captial_interest
+        self.payout_inflation_rate = payout_inflation_rate
+        self.deposit_inflation_rate = deposit_inflation_rate
+        self.period = period
     
-    def npv_funding(self, power_type):
-        costing_interest = self.discount.own_capital_interest
-        return ( self.investment_cost.initial_investment * -1
-                 - self.discount_calculations.calculate_discounted_lease(costing_interest)
-                 + self.discount.own_capital
-                 + self.discount.funding_amount
-                 + self.discount_calculations.calculate_discounted_electricity_feed_yield(costing_interest)
-                 - self.discount_calculations.calculate_discounted_maintenance(power_type, costing_interest))
-    
-    def npv_loan(self, power_type):
-        costing_interest = self.financial_details.mixed_costing_interest()
-        return (self.investment_details.initial_investment * -1
-                - self.yield_calculations.calculate_discounted_lease(costing_interest)
-                + self.financial_details.own_capital
-                + self.yield_calculations.calculate_discounted_loan(costing_interest)
-                + self.yield_calculations.calculate_discounted_electricity_feed_yield(costing_interest)
-                - self.yield_calculations.calculate_discounted_maintenance(power_type, costing_interest))
+    def mixed_costing_interest(self):
+        return ( (((self.own_captial_interest * self.own_captial) + (self.outside_capital_interest * self.loan)))
+                / (self.own_captial + self.loan) 
+            )
+
+    def a_maintaince(self, powertype):
+        if powertype == "pv":
+            return 0.025 * self.initial_investment
+        if powertype == "wk":
+            return 0.05 * self.initial_investment
+
+    def npv_funding(self, powertype, discounting, discounted_calculations):
+        costing_interest = self.own_captial_interest
+        
+        return ((self.initial_investment * (-1) ) 
+                - discounted_calculations.calculate_discounted_lease(costing_interest, discounting)
+                + self.own_captial + self.funding_amount  
+                + discounted_calculations.calculate_discounted_electricity_feed_yield(costing_interest, discounting) 
+                - discounted_calculations.calculate_discounted_maintaince(powertype, costing_interest, discounting)
+                )
+
+    def npv_loan(self, powertype, discounting, discounted_calculations):
+        costing_interest = self.mixed_costing_interest()
+        return ((self.initial_investment * (-1) ) 
+                - discounted_calculations.calculate_discounted_lease(costing_interest, discounting)
+                + self.own_captial + discounted_calculations.calculate_discounted_loan(costing_interest, discounting) 
+                + discounted_calculations.calculate_discounted_electricity_feed_yield(costing_interest, discounting)
+                - discounted_calculations.calculate_discounted_maintaince(powertype, costing_interest, discounting)
+                )
 
 
