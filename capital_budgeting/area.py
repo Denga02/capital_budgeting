@@ -18,18 +18,22 @@ class Area:
         self.payout_inflation_rate = payout_inflation_rate
         self.deposit_inflation_rate = deposit_inflation_rate
         self.period = period
-    
+
+    # calculation of mixed costing interest through own_capital_interest (i_EK) and outside_capital_interest (i_FK)
     def mixed_costing_interest(self):
         return ( (((self.own_captial_interest * self.own_captial) + (self.outside_capital_interest * self.loan)))
                 / (self.own_captial + self.loan) 
             )
 
+    # costs for maintenance (A_Wartung)
+    # powertype must be pv or wk
     def a_maintaince(self, powertype):
         if powertype == "pv":
             return 0.025 * self.initial_investment
         if powertype == "wk":
             return 0.05 * self.initial_investment
 
+    # net present value method one-off funding
     def npv_funding(self, powertype, discounting, discounted_calculations):
         costing_interest = self.own_captial_interest
         
@@ -40,6 +44,7 @@ class Area:
                 - discounted_calculations.calculate_discounted_maintaince(powertype, costing_interest, discounting)
                 )
 
+    # Net present value method for loan
     def npv_loan(self, powertype, discounting, discounted_calculations):
         costing_interest = self.mixed_costing_interest()
         return ((self.initial_investment * (-1) ) 
